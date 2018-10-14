@@ -3,9 +3,10 @@ from flask import jsonify
 
 class VectorEntry():
 
-  def __init__(self, iid, vector):
+  def __init__(self, index, iid, vector):
+    self.index = index
     self.id = iid
     self.vector = vector
 
   def get_as_json(self):
-    return jsonify({'id': self.id, 'vector': self.vector})
+    return {'index': self.index, 'id': self.id, 'vector': self.vector}
