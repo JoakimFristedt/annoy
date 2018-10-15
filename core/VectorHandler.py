@@ -28,11 +28,11 @@ class VectorHandler():
     index.build(-1)
     return True
 
-  def get_nns_by_vector(self, index_id, query_vector):
+  def get_nns_by_vector(self, index_id, query_vector, items):
     if index_id not in indices:
       return False
     index = indices[index_id]
-    result = index.get_nns_by_vector(query_vector, 100, -1, True)
+    result = index.get_nns_by_vector(query_vector, items, -1, True)
     ids = result[0]
     distances = result[1]
     vector_entries = []
@@ -40,3 +40,16 @@ class VectorHandler():
       vector_result = VectorResultEntry(index_id, ids[i], distances[i])
       vector_entries.append(vector_result)
     return vector_entries
+
+  def save_index_to_disk(self, index_id):
+    if index_id not in indices:
+      return False
+    index = indices[index_id]
+    index.save('/tmp/' + index_id) # read base path from property?
+    return True
+
+  def load_index_from_disk(self, index_id, dimensions):
+    index = AnnoyIndex(dimensions)
+    index.load('/tmp/' + index_id)
+    indices[index_id] = index
+    return True
