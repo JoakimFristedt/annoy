@@ -19,8 +19,8 @@ def create_index():
   valid_response_condition(request)
   status = vector_handler.create_index(request.json['id'], request.json['dimensions'])
   if status == True:
-    return jsonify({'acknowledged': True}), 201
-  return jsonify({'acknowledged': False}), 500
+    return make_response(True), 201
+  return make_response(False), 201
 
 @app.route(base_path + '/add', methods=['POST'])
 def add_vector():
@@ -30,10 +30,16 @@ def add_vector():
     return make_response(True), 201
   return make_response(False), 500
 
-@app.route(base_path + '/nns', methods=['POST'])
+@app.route(base_path + '/nns/vector', methods=['POST'])
 def get_nns_by_vector():
   valid_response_condition(request)
-  results = list(map(lambda x: x.get_as_json(), vector_handler.get_nns_by_vector(request.json['index'], request.json['vector'], request.json['items'])))
+  results = list(map(lambda x: x.get_as_json(), vector_handler.get_nns_by_vector(request.json['index'], request.json['vector'], request.json['size'])))
+  return jsonify(results), 200
+
+@app.route(base_path + '/nns/item', methods=['POST'])
+def get_nns_by_item():
+  valid_response_condition(request)
+  results = list(map(lambda x: x.get_as_json(), vector_handler.get_nns_by_item(request.json['index'], request.json['id'], request.json['size'])))
   return jsonify(results), 200
 
 @app.route(base_path + '/build', methods=['POST'])
@@ -70,5 +76,6 @@ def page_not_found(e):
 def valid_response_condition(request):
   if not request.json:
       abort(400)
+
 def make_response(acknowledged):
   return jsonify({'acknowledged': acknowledged})
