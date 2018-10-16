@@ -2,6 +2,10 @@ FROM python:3.5
 
 WORKDIR /usr/share/annoy
 
+ENV DATA_DIR /usr/share/annoy/data
+
+RUN mkdir /usr/share/annoy/data
+
 COPY ./api /usr/share/annoy/api
 COPY ./core /usr/share/annoy/core
 COPY ./rest /usr/share/annoy/rest
@@ -11,6 +15,7 @@ COPY ./requirements.txt /usr/share/annoy/requirements.txt
 
 RUN pip3 install -r requirements.txt
 RUN pip3 install gunicorn
+
 
 EXPOSE 5000
 

@@ -1,8 +1,10 @@
 from annoy import AnnoyIndex
 from api.VectorEntry import VectorEntry
 from api.VectorResultEntry import VectorResultEntry
+from core.Properties import Properties
 
 indices = {}
+properties = Properties()
 
 class VectorHandler():
 
@@ -58,11 +60,11 @@ class VectorHandler():
     if index_id not in indices:
       return False
     index = indices[index_id]
-    index.save('/tmp/' + index_id) # read base path from property?
+    index.save(properties.get_data_dir() + '/' + index_id) # read base path from property?
     return True
 
   def load_index_from_disk(self, index_id, dimensions):
     index = AnnoyIndex(dimensions)
-    index.load('/tmp/' + index_id)
+    index.load(properties.get_data_dir() + '/' + index_id)
     indices[index_id] = index
     return True
