@@ -3,6 +3,8 @@ curl -X POST -H 'Content-type: application/json' http://localhost:5000/v1/annoy/
     "dimensions": 300
 }'
 
+curl -X GET -H 'Content-type: application/json' http://localhost:5000/v1/annoy/index/list
+
 curl -X POST -H 'Content-type: application/json' http://localhost:5000/v1/annoy/index/add -d '{
     "index": "main",
     "id": 1,

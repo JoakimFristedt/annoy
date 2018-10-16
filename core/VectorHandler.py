@@ -6,6 +6,9 @@ indices = {}
 
 class VectorHandler():
 
+  def list_indices(self):
+    return indices.keys()
+
   def create_index(self, iid, dimensions):
     if indices and iid in indices:
       return False
