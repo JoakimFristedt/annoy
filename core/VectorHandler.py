@@ -38,16 +38,16 @@ class VectorHandler():
       return False
     index = indices[index_id]
     result = index.get_nns_by_item(query_id, size, -1, True)
-    return VectorHandler.get_vector_result_entries_from_nns(result, index_id)
+    return self.get_vector_result_entries_from_nns(result, index_id)
 
   def get_nns_by_vector(self, index_id, query_vector, size):
     if index_id not in indices:
       return False
     index = indices[index_id]
     result = index.get_nns_by_vector(query_vector, size, -1, True)
-    return VectorHandler.get_vector_result_entries_from_nns(result, index_id)
+    return self.get_vector_result_entries_from_nns(result, index_id)
 
-  def get_vector_result_entries_from_nns(result, index_id):
+  def get_vector_result_entries_from_nns(self, result, index_id):
     ids = result[0]
     distances = result[1]
     vector_entries = []
