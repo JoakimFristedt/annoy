@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!/usr/bin/env python3
 
 import os, logging
 from rest.IndexController import app
