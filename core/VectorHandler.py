@@ -43,14 +43,14 @@ class VectorHandler():
     if index_id not in indices:
       return False
     index = indices[index_id]
-    result = index.get_nns_by_item(query_id, size, -1, True)
+    result = index.get_nns_by_item(query_id, size, search_k, True)
     return self.get_vector_result_entries_from_nns(result, index_id)
 
   def get_nns_by_vector(self, index_id, query_vector, size, search_k):
     if index_id not in indices:
       return False
     index = indices[index_id]
-    result = index.get_nns_by_vector(query_vector, size, -1, True)
+    result = index.get_nns_by_vector(query_vector, size, search_k, True)
     return self.get_vector_result_entries_from_nns(result, index_id)
 
   def get_vector_result_entries_from_nns(self, result, index_id):
