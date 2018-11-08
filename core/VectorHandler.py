@@ -1,5 +1,6 @@
 from annoy import AnnoyIndex
 from api.VectorEntry import VectorEntry
+from api.Index import Index
 from api.VectorResultEntry import VectorResultEntry
 from core.Properties import Properties
 
@@ -11,12 +12,19 @@ class VectorHandler():
   def list_indices(self):
     return indices.keys()
 
-  def create_index(self, index_id, dimensions, index_metric):
-    if indices and index_id in indices:
+  def create_index(self, index):
+    if indices and index.index_id in indices:
       return False
-    index = AnnoyIndex(dimensions, metric=index_metric)
-    indices[index_id] = index
+    annoy_index = AnnoyIndex(index.dimensions, metric=index.metric)
+    indices[index.index_id] = annoy_index
     return True
+
+  def delete_index(self, index):
+    if index in indices: 
+      del indices[index]
+      return True
+    else:
+      return False
 
   def get_index_size(self, index_id):
     if index_id not in indices:

@@ -16,7 +16,6 @@ COPY ./requirements.txt /usr/share/annoy/requirements.txt
 RUN pip3 install -r requirements.txt
 RUN pip3 install gunicorn
 
-
 EXPOSE 5000
 
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--log-level=info", "app:app"]
