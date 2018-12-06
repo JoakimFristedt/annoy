@@ -79,7 +79,6 @@ class AddDocumentToIndex(Resource):
 class FindApproximateNearestNeighborsByVector(Resource):
   def post(self, index_id):
     valid_response_condition(request)
-    document = VectorEntry(index_id, doc_id, request.json['vector'])
     results = list(map(lambda x: x.get_as_json(), vector_handler.get_nns_by_vector(index_id, request.json['vector'], request.json['size'], request.json['search_k'])))
     return results, 200
 
